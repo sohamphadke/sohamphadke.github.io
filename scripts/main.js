@@ -1,36 +1,14 @@
+// Code to diplay beach image after clicking button
+document.getElementById('showBeachBtn').addEventListener('click', function() {
+  var beachImg = document.getElementById('beachImage');
+  beachImg.src = 'images/beach.png';
+  beachImg.style.display = 'block';
+});
 
-let myImage = document.querySelector('img');
+// Code for name input and alert
+document.getElementById('nameForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var name = document.getElementById('userName').value;
+  alert('Hello, ' + name + '!');
+});
 
-myImage.onclick = function() {
-  let mySrc = myImage.getAttribute('src');
-  if(mySrc === 'images/firefox-icon.png') {
-    myImage.setAttribute ('src','images/firefox2.png');
-  } else {
-    myImage.setAttribute ('src','images/firefox-icon.png');
-  }
-}
-
-
-let myButton = document.querySelector('button');
-let myHeading = document.querySelector('h1');
-
-function setUserName() {
-  let myName = prompt('Please enter your name.');
-  if(!myName) {
-    setUserName();
-  } else {
-    localStorage.setItem('name', myName);
-    myHeading.innerHTML = 'Mozilla is cool, ' + myName;
-  }
-}
-
-if(!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  let storedName = localStorage.getItem('name');
-  myHeading.innerHTML = 'Mozilla is cool, ' + storedName;
-}
-
-myButton.onclick = function() {
-  setUserName();
-}

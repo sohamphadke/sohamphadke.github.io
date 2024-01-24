@@ -8,34 +8,41 @@
     <link href="styles/style.css" rel="stylesheet" />
 
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto">
+          href="https://fonts.googleapis.com/css?family=Oswald">
 
 </head>
 <body>
 
     <h1>Soham Phadke</h1>
-    
-    <img src="images/firefox-icon.png" alt="Firefox Logo" width="100">
 
-    <p>Bio</p>
+    <h2>Bio</h2>
+
+    <p>My name is Soham Phadke and I am a fourth year student at Northeastern majoring in Finance and minoring
+        in Data Science. I have done two co-ops so far, one at Deloitte as an audit intern and the second one 
+        at HealthEdge as a financial analyst.
+    </p>
 
     <p>Here's what I want to include on this website later</p>
     <ul> 
-        <li>technologists</li>
-        <li>thinkers</li>
-        <li>builders</li>
+        <li>An HTML form, so that I can store user input</li>
+        <li>Add a button to set an to change the font of the text</li>
+        <li>Make the website better looking with Bootstrap</li>
     </ul>
 
-    <p>working together to keep the Internet alive and accessible, 
-        so people worldwide can be informed contributors and creators of the Web. 
-        We believe this act of human collaboration across an open platform is essential to individual growth and 
-        our collective future.
-    </p>
-
-    <p> Read the <a href="https://www.mozilla.org/en-US/about/manifesto/">Mozilla Manifesto</a> </p>
+    <img src="images/lake.jpeg" alt="lake" width="400">
+    <img src="images/skyline.jpeg" alt="NYC skyline" width="400">
+    <img id="beachImage" src="" alt="Beach" style="display:none;" width="400">
 
 
-    <button>Change user</button>
+
+    <button id="showBeachBtn">Show beach image</button>
+
+    <form id="nameForm">
+        <label for="userName">Name:</label>
+        <input type="text" id="userName" name="userName">
+        <button type="submit">Submit</button>
+    </form>
+    
 
     <script src="scripts/main.js"></script>
 
