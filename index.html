@@ -1,51 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success Factors of Music on Spotify and YouTube</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <link href="styles/style.css" rel="stylesheet" />
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Oswald">
-
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+  <div class="container">
+    <header class="my-4 text-center">
+      <h1 class="text-white">Success Factors of Music on Spotify and YouTube</h1>
+      <p class="lead">DS4200 Final Project: Vivian Chong, Ruo-Jie (Jenny) Lin, Soham Phadke, Neha Sriram (Group 2)</p>
+    </header>
 
-    <h1>Soham Phadke</h1>
+    <!-- Project Introduction -->
+    <section id="project-introduction">
+      <h2>Project Introduction</h2>
 
-    <h2>Bio</h2>
+      <p>In today’s musical world, the success of a song on streaming platforms like Spotify and YouTube isn’t 
+        simply determined by melodies or marketing strategies. Musical elements play a crucial role in attracting
+        audiences and influence their level of engagement; factors such as danceability, loudness, acousticness, 
+        and various other musical attributes could be significant. Our project aims to examine what particular factors
+        influence the success of various tracks on two popular streaming platforms, Spotify and YouTube, via metrics
+        like streams (Spotify) and views and likes (YouTube).
+      </p>
 
-    <p>My name is Soham Phadke and I am a fourth year student at Northeastern majoring in Finance and minoring
-        in Data Science. I have done two co-ops so far, one at Deloitte as an audit intern and the second one 
-        at HealthEdge as a financial analyst.
-    </p>
+      <p>By analyzing this data, we can uncover insights on what truly resonates with audiences in the digital age. 
+        This exploration not only offers a deeper understanding of the potential relationship between musical elements 
+        and audience preferences but also provides guidance for artists, producers, and music professionals seeking 
+        to navigate the ever-evolving scope of digital music distribution and consumption. 
+      </p>
 
-    <p>Here's what I want to include on this website later</p>
-    <ul> 
-        <li>An HTML form, so that I can store user input</li>
-        <li>Add a button to set an to change the font of the text</li>
-        <li>Make the website better looking with Bootstrap</li>
+      <p>References:</p>
+    <ul>
+      <li><a href="https://dhruv-khurjekar.medium.com/investigating-spotifys-danceability-index-other-song-attributes-1983142f7dfd">Investigating Spotify’s Danceability Index & Other Song Attributes</a></li>
+      <li><a href="https://medium.com/cuepoint/visualizing-hundreds-of-my-favorite-songs-on-spotify-fe50c94b8af3">Visualizing Hundreds of My Favorite Songs on Spotify</a></li>
     </ul>
 
-    <img src="images/lake.jpeg" alt="lake" width="400">
-    <img src="images/skyline.jpeg" alt="NYC skyline" width="400">
-    <img id="beachImage" src="" alt="Beach" style="display:none;" width="400">
+    </section>
 
+    <!-- Our Data -->
+    <section id="our-data">
+      <h2>Our Data</h2>
 
+      <p>Our analysis is based on a dataset from Kaggle, a well-known platform for data scientists and other 
+        developers to run machine learning competitions, write and share code, and host datasets. Our dataset 
+        titled <a href="https://www.kaggle.com/datasets/salvatorerastelli/spotify-and-youtube">Spotify and Youtube</a> 
+        provides detailed statistics and metrics for the top 10 songs of various artists. It consists of 20,719 rows, 
+        each row representing a unique song, and 26 features that detail the various attributes as presented by 
+        Spotify and YouTube.
+      </p> 
+  
+      <p>In terms of Spotify attributes, the dataset includes details such as the track name, artist, album details,
+        and a unique Spotify URI for API access. It also includes audio feature information for each track, pulled 
+        from <a href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features">Spotify's API</a>, 
+        as well as song duration in milliseconds and the number of streams. 
+      </p>
+  
+      <p>In terms of YouTube attributes, the dataset provides information like the video's URL, title, channel on which
+        it was posted, view count, like count, comment count, and other descriptive details like whether it is licensed 
+        and an official video.
+      </p>
 
-    <button id="showBeachBtn">Show beach image</button>
+    </section>
 
-    <form id="nameForm">
-        <label for="userName">Name:</label>
-        <input type="text" id="userName" name="userName">
-        <button type="submit">Submit</button>
-    </form>
-    
+    <!-- Cleaning & Pre-Processing -->
+    <section id="cleaning-preprocessing">
+      <h2>Cleaning & Pre-Processing</h2>
+      <p>Our dataset is relatively clean so our cleaning and pre-processing steps were minimal. We renamed a few of the 
+        columns consisting of Spotify and YouTube metrics to include the platform names in order to better differentiate 
+        between them (e.g. "views" -> "Views_YouTube"). We also decided to remove a few columns that would not be relevant/used 
+        in our data visualization process, such as URLs, YouTube descriptions, and the YouTube channel names (since we already
+        have the track and artist names from the Spotify columns). Additionally, despite some of the non-American artists having 
+        accented characters in their names, the encoding issue head little effect on our data visualization process 
+        since we are focusing on numerical data, like audio features and statistics. 
+      </p>
 
-    <script src="scripts/main.js"></script>
+      <p>See the table below for descriptions of the final relevant features in our dataset. <i>Audio features are colored in purple.</i></p>
 
+      <br>
+        <div>
+        <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-0lax"><b>Variable Name</b></th>
+                <th class="tg-0lax"><b>Details</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-0lax">Track</td>
+                <td class="tg-0lax">Name of the song, as listed on the Spotify platform</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Artist</td>
+                <td class="tg-0lax">Name of the artist</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Album</td>
+                <td class="tg-0lax">The album in which the song is contained (Spotify)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Album_type</td>
+                <td class="tg-0lax">Indicates if the song was released on Spotify as a <i>single</i> or contained in an <i>album</i></td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Danceability</td>
+                <td class="tg-0lax">How suitable a track is for dancing (0.0 = least danceable / 1.0 = most danceable)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Energy</td>
+                <td class="tg-0lax">Represents a perceptual value of intensity and activity (0.0 = low energy / 1.0 = high energy)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Key</td>
+                <td class="tg-0lax">Key of the track, mapping pitches to integers (e.g. 0 = C, 1 = C#/D♭, 2 = D, and so on)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Loudness</td>
+                <td class="tg-0lax">Overall loudness measured in decibles (the more speech-like, the closer to 1.0)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Speechiness</td>
+                <td class="tg-0lax">Presence of spoken words</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Acousticness</td>
+                <td class="tg-0lax">A confidence measure from 0.0 (low) to 1.0 (high) of whether the track is acoustic</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Instrumentalness</td>
+                <td class="tg-0lax">Predicts whether a track contains no vocals (values closer to 1.0 represent greater likelihood)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Liveness</td>
+                <td class="tg-0lax">Presence of an audience in the recording (whether it was performed live)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Valence</td>
+                <td class="tg-0lax">A measure from 0.0 (low) to 1.0 (high) describing the musical positiveness (happy/cheerful or negative/sad)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax audio-feature">Tempo</td>
+                <td class="tg-0lax">Overall estimated tempo of a track in beats per minute (BPM)</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Duration_ms</td>
+                <td class="tg-0lax">Duration of a track in milliseconds</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Views_YouTube</td>
+                <td class="tg-0lax">Number of views on YouTube</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Likes_YouTube</td>
+                <td class="tg-0lax">Number of likes on YouTube</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Comments_YouTube</td>
+                <td class="tg-0lax">Number of user comments on YouTube</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Licensed</td>
+                <td class="tg-0lax">Whether the video represents licensed content</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Official_Video</td>
+                <td class="tg-0lax">Boolean value that indicates if the video found is the official video of the song</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Stream_Spotify</td>
+                <td class="tg-0lax">Number of streams on Spotify</td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+        <br>
 
-</body>
+        <p>
+          <i>Note that for the sake of differentiation in our visualizations, we colored any plots comprised of YouTube metrics (views, likes, comments)
+          in red and Spotify metrics (streams) in green.
+          </i>
+        </p>
+    </section>
+
+    <!-- Overview of the relationship between a song's audio features and success -->
+    <section id="audio-features-success">
+      <h2>Overview of the relationship between a song's audio features and success</h2>
+
+      <p>First, we can examine if there are any relationships between a song's audio features and its success on Spotify (measured 
+        by number of streams) and YouTube (measured by number of views). We created an interactive facet grid of scatter plots using Altair
+        to depict this. Each scatter plot shows the correlation between an audio feature of songs and their number of streams on Spotify.
+        When we created this same scatter plot for YouTube views, it showed almost the same correlations, so we decided to only include one for brevity.
+      </p>
+
+      <p>To interact, you can click and highlight any part on one of these scatter plots to show the corresponding songs' data on 
+        the other plots (multi-panel selection). Only the ones highlighted will be in green, while the nonhighlighted values will appear slightly transparent.
+      </p>
+
+      <div>
+        <iframe src="visualizations/interactive_scatterplot.html" width="1080" height="600"></iframe>
+     </div>
+
+     <p>Based on these scatterplots, it is clear that artists' top songs on Spotify tend to have higher Danceability, Energy, Loudness,
+      and Tempo, as well as lower Speechiness, Acousticness, Instrumentalness, and Liveness. In other words, songs that are more
+      energetic, danceable, louder, have a tempo between 100-150 BPM, have fewer spoken words, acousticness, instrumentals, and not are not live versions
+      are more likely to perform well in terms of streams. Meanwhile, Key and Valence do not seem to have as much of an effect
+      on how songs perform on Spotify with most of the songs' points scattered across a large range. 
+    </p>
+    </section>
+
+    <!-- Attributes of Top 5 Artists -->
+    <section id="top-artists-attributes">
+      <h2>What attributes do the Top 5 Artists on each platform possess?</h2>
+
+      <p>Next, we wanted to see out of all of our artists' songs, who were the top artists and what audio features
+        do their songs possess that make them the most successful? We created static radar charts, depicting the musical 
+        attributes for the Top 5 Artists on each platform, Spotify and YouTube. We decided to omit some of the audio features 
+        for this visualization, such as Key, Liveness, and Instrumentalness since they were either not on the same scale nor 
+        as relevant/had very low values. Then, we normalized the remaining features.
+      </p>
+
+      <div>
+        <img class="container" src = "visualizations/topspotify_radarchart.png" width="70%" height="680px" frameborder="0"></img>
+      </div> 
+      <br>
+      <div>
+        <img class="container" src = "visualizations/topyoutube_radarchart.png" width="70%" height="680px" frameborder="0"></img>
+      </div>
+      <br>
+      <p>The top artists vary on each platform, except for Ed Sheeran. Upon analyzing these radar charts, we see that high
+        Loudness, Energy, and Danceability are factors that tend to correlate with greater success among these top artists, 
+        whereas Speechiness and Acousticness are less desirable. As we saw in our previous scatter plots, Valence and Tempo do not 
+        seem to correlate much with success at all, even among these top artists.
+      </p>
+    </section>
+
+    <!-- Danceability and Energy -->
+    <section id="danceability-energy">
+      <h2>What is the correlation between Danceability and Energy</h2>
+      
+      <p>Based on the previous visualizations, it is clear that danceability and energy are two of the most influential features on 
+        a song's streaming success on either platform. We expected that a higher danceability score would mean a higher energy score for a particular song. 
+        The following plot is an interactive bubble plot generated using Plotly Express,
+        illustrating the relationship between the Danceability and Energy attributes of an artist's songs, with the size of the bubbles
+        representing the average views on YouTube for each artist. This was created by aggregating our main dataset by artist name and 
+        averaging all numerical attributes, pulling out Danceability, Energy, and YouTube views. 
+      </p>
+
+      <p>To interact with the bubble plot below, the user can zoom into specific sections of the plot for closer examination. Additionally,
+        selecting a particular legend item filters the plot to display only the data points for that specific artist. Hovering over a bubble 
+        reveals a tooltip containing the artist's name, exact danceability, and loudness (another influential audio feature) scores, as well 
+        as YouTube views.
+      </p>
+
+      <div>
+        <iframe src = "visualizations/bubbleplot.html" width="100%" height="600px" frameborder="0"></iframe>
+      </div>
+
+      <p>Upon observing the plot, it becomes apparent that danceability and energy generally exhibit a positive correlation. This suggests 
+        that as the danceability score of an artist's songs increases, so does the energy score.
+      </p>
+    </section>
+
+    <!-- YouTube Video Official/Licensed Impact -->
+    <section id="youtube-impact">
+      <h2>Does a song's YouTube video being official and licensed affect its success?</h2>
+
+      <p> We wanted to figure out if a song's YouTube video being its official video and/or being licensed content
+          affects its success (in YouTube views). This static side-by-side bar plot shows the relationship between Official
+          and/or Licensing status and average YouTube views. We can conclude that official and licensed videos are much
+          more successful, and a video that is both Official and Licensed achieving the highest average views compared
+          to if a video is not official and/or not licensed. This makes sense with what we hypothesized since official,
+          licensed videos are likely music videos for title songs with promotion efforts. 
+      </p>
+
+      <div>
+        <img class="container" src = "visualizations/official_licensed_barchart.png"></img>
+      </div>
+    </section>
+
+    <!-- Album Type's Effect on Success -->
+    <section id="album-effect">
+      <h2>Observing Album Type's Effect on Success</h2>
+
+      <p>Finally, we wanted to see if a song's Album Type (if it was released as part of an album, compilation, or just as a single) had any 
+        correlation with audio features and in turn, streaming success. This static side-by-side bar chart compares Danceability, Energy, and Valence averages across 
+        songs that are on Albums, Compilations, or are Singles. Singles have higher Danceability and Energy, indicating that singles that perform well are more tailored to be upbeat tracks. 
+        Songs on compilations have the lowest Energy levels, while Valence shows minimal variation and Singles tend to be more positive. Overall, Singles are 
+        more engaging and upbeat compared to songs on Albums and Compilations, catering to different audience preferences.
+      </p>
+
+      <div>
+        <img class="container" src = "visualizations/albumtype_barchart.png"></img>
+      </div>
+    </section>
+
+    <!-- Summary and Future Work -->
+    <section id="summary-future-work">
+      <h2>Summary and Future Work </h2>
+
+      <p>In conclusion, we have found that there are certain attributes that artists should focus on for a better likelihood
+        of success on music streaming platforms like Spotify and YouTube. These include Danceability, Energy, Loudness, and Tempo.
+        There are also audio features that have little to no relationship with success and popularity such as Valence and Key. This 
+        can be surprising to some, especially because we may think that a song being more positive/happy would equate to more success, especially
+        in the mainstream market. 
+      </p>
+
+      <p>We have also found that other factors like whether a song's YouTube video is official and/or licensed as well matters as well for
+        promotional reasons. Additionally, artists' top songs that are released as singles as opposed to being part of an album or
+        compilation tend to have higher danceability and energy, which can be a learning lesson for other artists looking to create big hits. 
+      </p>
+
+      <p>Furthermore, we found that success trends between Spotify streams and YouTube views are very similar, so artists should
+        make an active effort to promote their music on both platforms and not simply assume that one is better than the other
+        for exposure or growth. 
+      </p>
+
+      <p>In terms of future work, there are a few other types of analysis that we think would have been interesting to explore
+        given more time and access to data: 
+      </p>
+
+      <ul>
+        <li><b>Genre-based analysis: </b>Find data that includes genres for these artists and their songs, and explore the correlation between
+        genre and various audio features and/or streaming success and engagement.</li>
+        <li><b>User enagement analysis: </b>Examine correlations between YouTube engagement metrics, such as likes, views, and comments.</li>
+        <li><b>Predictive modeling: </b>Utilize machine learning algorithms in order to predict future streaming trends, popular genres, and/or 
+        emerging artists. This could include gathering the audio features of a new song and predicting its level of success on music streaming platforms.</li>
+      </ul>
+
+      <p>Thank you for reading! If you are interested in this project and would like to share more opinions 
+        or resources, please contact: 
+        <ul>
+          <li>Vivian Chong: chong.v@northeastern.edu</li>
+          <li>Jenny Lin: lin.ruo-@northeastern.edu</li>
+          <li>Soham Phadke: phadke.s@northeastern.edu</li>
+          <li>Neha Sriram: sriram.n@northeastern.edu</li>
+        </ul>
+
+      </p>
+    </section>
+
+  </body>
 </html>
